@@ -1,5 +1,5 @@
 /*
- * $Id: hostfs.c,v 1.1 2005/07/27 21:34:34 mhowkins Exp $
+ * $Id: hostfs.c,v 1.2 2005/10/16 17:06:49 mdales Exp $
  */
 
 #include <assert.h>
@@ -13,6 +13,7 @@
 #include <dirent.h>
 #include <unistd.h>
 #include <sys/stat.h>
+#include <sys/syslimits.h>
 
 #include "arch/armarc.h"
 #include "hostfs.h"
