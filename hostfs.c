@@ -1,5 +1,5 @@
 /*
- * $Id: hostfs.c,v 1.11 2006/02/07 18:58:49 mhowkins Exp $
+ * $Id: hostfs.c,v 1.12 2006/02/12 22:38:42 mhowkins Exp $
  */
 
 #include <assert.h>
@@ -130,24 +130,12 @@ hostfs_ensure_buffer_size(size_t buffer_size_needed)
 static void
 get_string(ARMul_State *state, ARMword address, char *buf, size_t bufsize)
 {
-  char *cptr = buf;
-  ARMword *wptr = (ARMword *) buf;
-
   assert(state);
   assert(buf);
 
   /* TODO Ensure we do not overrun the end of the passed-in space,
      using the bufsize parameter */
-  for (;;) {
-    *wptr = ARMul_LoadWordS(state, address);
-    if (cptr[0] == '\0' || cptr[1] == '\0' ||
-        cptr[2] == '\0' || cptr[3] == '\0')
-    {
-      return;
-    }
-    wptr++;
-    cptr += 4;
-    address += 4;
+  while ((*buf++ = ARMul_LoadByte(state, address++)) != '\0') {
   }
 }
 
