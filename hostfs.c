@@ -1,5 +1,5 @@
 /*
- * $Id: hostfs.c,v 1.17 2006/04/07 18:58:14 chris_y Exp $
+ * $Id: hostfs.c,v 1.17.2.1 2010/08/19 20:49:35 chris_y Exp $
  */
 
 #include <assert.h>
@@ -1270,7 +1270,11 @@ hostfs_file_8_create_dir(ARMul_State *state)
   dbug_hostfs("\tHOST_PATHNAME = %s\n", host_pathname);
 
   /* Create directory */
+#ifdef SYSTEM_win
+  if (mkdir(host_pathname)) {
+#else
   if (mkdir(host_pathname, 0777)) {
+#endif
     /* An error occurred whilst creating the directory */
 
     switch (errno) {
