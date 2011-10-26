@@ -1,13 +1,12 @@
 /* archio.c - IO and IOC emulation.  (c) David Alan Gilbert 1995 */
 /* (c) David Alan Gilbert 1995 - see Readme file for copying info */
 /*
- * $Id: archio.c,v 1.9.2.2 2010/08/19 21:02:45 chris_y Exp $
+ * $Id: archio.c,v 1.9.2.3 2011/10/26 23:41:30 phlamethrower Exp $
  */
 
 #include <ctype.h>
 #include <signal.h>
 
-#include "../armopts.h"
 #include "../armdefs.h"
 
 #include "dbugsys.h"
