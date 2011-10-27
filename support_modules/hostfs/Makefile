@@ -1,5 +1,5 @@
 #
-# $Id: Makefile,v 1.2 2006/03/07 15:17:10 mhowkins Exp $
+# $Id: Makefile,v 1.2.2.1 2011/10/27 20:41:54 phlamethrower Exp $
 #
 
 AS = armas
@@ -9,7 +9,7 @@ OBJCOPY = armobjcopy
 
 
 
-all: hostfs,ffa hostfsfiler,ffa
+all: hostfs,ffa
 
 %,ffa: %.elf
 	$(OBJCOPY) -O binary $< $@
