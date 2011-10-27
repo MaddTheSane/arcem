@@ -1,5 +1,5 @@
 /*
- * $Id: hostfs.c,v 1.1.2.1 2011/10/27 00:32:23 phlamethrower Exp $
+ * $Id: hostfs.c,v 1.1.2.2 2011/10/27 00:45:29 phlamethrower Exp $
  *
  * HostFS implementation for RISC OS hosts
  * Basically the same as the standard one, but without all the filename/type
@@ -128,7 +128,7 @@ hostfs_ensure_buffer_size(size_t buffer_size_needed)
     buffer = realloc(buffer, buffer_size_needed);
     if (!buffer) {
       fprintf(stderr, "HostFS could not increase buffer size to %u bytes\n",
-              buffer_size_needed);
+              (ARMword) buffer_size_needed);
       exit(EXIT_FAILURE);
     }
     buffer_size = buffer_size_needed;
@@ -226,24 +226,6 @@ riscos_path_to_host(const char *path, char *host_path)
   }
 
   *host_path = '\0';
-}
-
-/**
- * @param object_name Name of Host object (file or directory)
- * @param len         Length of the part of the name to convert
- * @param riscos_name Return object name in RISC OS format (filled-in)
- */
-static void
-name_host_to_riscos(const char *object_name, size_t len, char *riscos_name)
-{
-  assert(object_name);
-  assert(riscos_name);
-
-  while (len--) {
-    *riscos_name++ = *object_name++;
-  }
-
-  *riscos_name = '\0';
 }
 
 /**
@@ -1270,7 +1252,6 @@ hostfs_cache_dir(const char *directory_name)
 
   unsigned entry_ptr = 0;
   unsigned name_ptr = 0;
-  const struct dirent *entry;
 
   assert(directory_name);
 
