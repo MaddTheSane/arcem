@@ -1,7 +1,7 @@
 /* archio.c - IO and IOC emulation.  (c) David Alan Gilbert 1995 */
 /* (c) David Alan Gilbert 1995 - see Readme file for copying info */
 /*
- * $Id: archio.c,v 1.9.2.13 2011/10/27 20:57:31 phlamethrower Exp $
+ * $Id: archio.c,v 1.9.2.14 2011/10/27 21:08:33 phlamethrower Exp $
  */
 
 #include <ctype.h>
