@@ -1,5 +1,5 @@
 /*
- * $Id: hostfs.c,v 1.17.2.2 2010/08/19 21:02:45 chris_y Exp $
+ * $Id: hostfs.c,v 1.17.2.3 2011/10/27 01:17:08 phlamethrower Exp $
  */
 
 #include <assert.h>
@@ -86,8 +86,6 @@ typedef struct {
 
 #define STREQ(x,y)     (strcmp(x,y) == 0)
 #define STRCASEEQ(x,y) (strcasecmp(x,y) == 0)
-
-#define MIN(x,y) (((x) < (y)) ? (x) : (y))
 
 #define MAX_OPEN_FILES 255
 
