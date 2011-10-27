@@ -1,7 +1,7 @@
 /* archio.c - IO and IOC emulation.  (c) David Alan Gilbert 1995 */
 /* (c) David Alan Gilbert 1995 - see Readme file for copying info */
 /*
- * $Id: archio.c,v 1.9.2.10 2011/10/27 19:52:52 phlamethrower Exp $
+ * $Id: archio.c,v 1.9.2.11 2011/10/27 20:15:17 phlamethrower Exp $
  */
 
 #include <ctype.h>
@@ -676,6 +676,8 @@ PutValIO(ARMul_State *state, ARMword address, ARMword data, int byteNotword)
 #ifdef HOSTFS_SUPPORT
     case 0x001: /* HostFS */
       hostfs(state, operation);
+      /* hostfs operation may have taken a while; update EmuRate to try and mitigate any audio buffering issues */
+      EmuRate_Update(state);
       break;
 #endif
     default:

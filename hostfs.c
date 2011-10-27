@@ -1,5 +1,5 @@
 /*
- * $Id: hostfs.c,v 1.17.2.5 2011/10/27 19:52:52 phlamethrower Exp $
+ * $Id: hostfs.c,v 1.17.2.6 2011/10/27 20:15:17 phlamethrower Exp $
  */
 
 #include <assert.h>
