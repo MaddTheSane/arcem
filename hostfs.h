@@ -1,5 +1,5 @@
 /*
- * $Id: hostfs.h,v 1.2.2.3 2011/10/27 21:08:33 phlamethrower Exp $
+ * $Id: hostfs.h,v 1.2.2.4 2011/10/30 17:42:22 chris_y Exp $
  */
 
 #ifndef HOSTFS_H
@@ -27,5 +27,14 @@ extern void hostfs_reset(void);
 #include <sys/_types.h>
 typedef _off64_t off64_t;
 #endif
+
+#ifdef __amigaos3__
+typedef long off64_t;
+
+#define ftello64 ftell
+#define fseeko64 fseek
+#define fopen64 fopen
+#endif
+
 
 #endif
