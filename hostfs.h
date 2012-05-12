@@ -1,5 +1,5 @@
 /*
- * $Id: hostfs.h,v 1.3 2012/05/12 17:34:50 phlamethrower Exp $
+ * $Id: hostfs.h,v 1.4 2012/05/12 17:34:51 phlamethrower Exp $
  */
 
 #ifndef HOSTFS_H

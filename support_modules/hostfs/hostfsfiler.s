@@ -1,5 +1,5 @@
         @
-        @ $Id: hostfsfiler.s,v 1.3 2012/05/12 17:34:51 phlamethrower Exp $
+        @ $Id: hostfsfiler.s,v 1.4 2012/05/12 17:34:51 phlamethrower Exp $
         @
         @ HostFS Filer
         @

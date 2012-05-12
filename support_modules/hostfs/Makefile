@@ -1,5 +1,5 @@
 #
-# $Id: Makefile,v 1.3 2012/05/12 17:34:51 phlamethrower Exp $
+# $Id: Makefile,v 1.4 2012/05/12 17:34:51 phlamethrower Exp $
 #
 
 AS = armas
