@@ -1,5 +1,5 @@
 /*
- * $Id: hostfs.h,v 1.4 2012/05/12 17:34:51 phlamethrower Exp $
+ * $Id: hostfs.h,v 1.5 2012/07/30 21:26:24 phlamethrower Exp $
  */
 
 #ifndef HOSTFS_H
@@ -28,7 +28,7 @@ extern void hostfs_reset(void);
 typedef _off64_t off64_t;
 #endif
 
-#ifdef __amigaos3__
+#if defined __amigaos3__ || defined _MSC_VER
 typedef long off64_t;
 
 #define ftello64 ftell
