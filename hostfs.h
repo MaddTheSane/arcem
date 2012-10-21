@@ -1,5 +1,5 @@
 /*
- * $Id: hostfs.h,v 1.5 2012/07/30 21:26:24 phlamethrower Exp $
+ * $Id: hostfs.h,v 1.6 2012/10/21 16:59:31 phlamethrower Exp $
  */
 
 #ifndef HOSTFS_H
@@ -16,6 +16,7 @@
 
 #define rpclog(...) fprintf(stderr,__VA_ARGS__)
 #define error(...) fprintf(stderr,__VA_ARGS__)
+#define hostfs_error(code,...) ControlPane_Error(code,__VA_ARGS__)
 
 #define HOSTFS_ARCEM /* Build ArcEm version, not RPCEmu */
 
