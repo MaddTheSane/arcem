@@ -13,14 +13,14 @@
 #define DISPLAYDEV_H
 
 typedef struct {
-  int (*Init)(ARMul_State *state,const struct Vidc_Regs *Vidc); /* Initialise display device, return nonzero on failure */
-  void (*Shutdown)(ARMul_State *state); /* Shutdown display device */
-  void (*VIDCPutVal)(ARMul_State *state,ARMword address, ARMword data,bool bNw); /* Call made by core to handle writing to VIDC registers */
-  void (*DAGWrite)(ARMul_State *state,int reg,ARMword val); /* Call made by core when video DAG registers are updated. reg 0=Vinit, 1=Vstart, 2=Vend, 3=Cinit */
-  void (*IOEBCRWrite)(ARMul_State *state,ARMword val); /* Call made by core when IOEB control register is updated */
+  int (*Init)(ARMul_State *state,const struct Vidc_Regs *Vidc); /*!< Initialise display device, return nonzero on failure */
+  void (*Shutdown)(ARMul_State *state); /*!< Shutdown display device */
+  void (*VIDCPutVal)(ARMul_State *state,ARMword address, ARMword data,bool bNw); /*!< Call made by core to handle writing to VIDC registers */
+  void (*DAGWrite)(ARMul_State *state,int reg,ARMword val); /*!< Call made by core when video DAG registers are updated. reg 0=Vinit, 1=Vstart, 2=Vend, 3=Cinit */
+  void (*IOEBCRWrite)(ARMul_State *state,ARMword val); /*!< Call made by core when IOEB control register is updated */
 } DisplayDev;
 
-/* Raw VIDC registers */
+/*! Raw VIDC registers */
 struct Vidc_Regs {
   uint16_t Palette[16];
   uint16_t BorderCol;
@@ -48,24 +48,24 @@ struct Vidc_Regs {
 
 #define VIDC (*(state->Display))
 
-extern const DisplayDev *DisplayDev_Current; /* Pointer to current display device */
-extern bool DisplayDev_UseUpdateFlags; /* Global flag for whether the current device is using MEMC.UpdateFlags */
+extern const DisplayDev *DisplayDev_Current; /*!< Pointer to current display device */
+extern bool DisplayDev_UseUpdateFlags; /*!< Global flag for whether the current device is using MEMC.UpdateFlags */
 
-extern bool DisplayDev_AutoUpdateFlags; /* Automatically select whether to use UpdateFlags or not. If true, this causes DisplayDev_UseUpdateFlags and DisplayDev_FrameSkip to be updated automatically. */
+extern bool DisplayDev_AutoUpdateFlags; /*!< Automatically select whether to use UpdateFlags or not. If true, this causes DisplayDev_UseUpdateFlags and DisplayDev_FrameSkip to be updated automatically. */
 
-extern int DisplayDev_FrameSkip; /* If DisplayDev_UseUpdateFlags is true, this provides a frameskip value used by the standard & palettised drivers. If DisplayDev_UseUpdateFlags is false, it acts as failsafe counter that forces an update when a certain number of frames have passed */
+extern int DisplayDev_FrameSkip; /*!< If DisplayDev_UseUpdateFlags is true, this provides a frameskip value used by the standard & palettised drivers. If DisplayDev_UseUpdateFlags is false, it acts as failsafe counter that forces an update when a certain number of frames have passed */
 
-extern int DisplayDev_Set(ARMul_State *state,const DisplayDev *dev); /* Switch to indicated display device, returns nonzero on failure */
+extern int DisplayDev_Set(ARMul_State *state,const DisplayDev *dev); /*!< Switch to indicated display device, returns nonzero on failure */
 
-/* Host must provide this function to initialize the default display device */
+/*! Host must provide this function to initialize the default display device */
 extern int DisplayDev_Init(ARMul_State *state);
 
-/* Calculate cursor position relative to the first display pixel */
+/*! Calculate cursor position relative to the first display pixel */
 extern void DisplayDev_GetCursorPos(ARMul_State *state,int *x,int *y);
 
-extern uint32_t DisplayDev_GetVIDCClockIn(void); /* Get VIDC source clock rate (affected by IOEB CR) */
+extern uint32_t DisplayDev_GetVIDCClockIn(void); /*!< Get VIDC source clock rate (affected by IOEB CR) */
 
-extern void DisplayDev_VSync(ARMul_State *state); /* Trigger VSync interrupt & update ARMul_EmuRate. Note: Manipulates event queue! */
+extern void DisplayDev_VSync(ARMul_State *state); /*!< Trigger VSync interrupt & update ARMul_EmuRate. Note: Manipulates event queue! */
 
 /* General endian swapping/endian-aware memcpy functions */
 
@@ -84,10 +84,10 @@ static inline void EndianWordCpy(ARMword *dest,const ARMword *src,size_t count)
   }
 }
 
-/* src = little-endian emu memory, dest = big-endian host memory */
+/*! src = little-endian emu memory, dest = big-endian host memory */
 extern void ByteCopy(uint8_t *dest,const uint8_t *src,size_t size);
 
-/* src = big-endian host memory, dest = little-endian emu memory */
+/*! src = big-endian host memory, dest = little-endian emu memory */
 extern void InvByteCopy(uint8_t *dest,const uint8_t *src,size_t size);
 #else
 #define EndianSwap(X) (X)

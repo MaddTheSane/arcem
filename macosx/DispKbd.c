@@ -1072,11 +1072,11 @@ void VIDC_PutVal(ARMul_State *state,ARMword address, ARMword data,int bNw)
 int
 Kbd_PollHostKbd(ARMul_State *state)
 {
-  return -1;
+  return DisplayKbd_PollHost(state);
 }
 
 int
 DisplayDev_Init(ARMul_State *state)
 {
-  return -1;
+  return DisplayDev_Set(state,&PDD_DisplayDev);
 }
