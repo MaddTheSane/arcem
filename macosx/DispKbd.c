@@ -207,17 +207,15 @@ DisplayKbd_PollHost(ARMul_State *state)
   return 0;
 }
 
-#define SDD_Name(x) sdd_##x
-typedef struct SDD_Row {
-  int x,y; /*!< Current coordinates in pixels */
-  int width; /*!< Width of area being updated */
-} SDD_Row;
+#define SDD_Name(x) sdd_Mac_##x
 
 typedef uint32_t SDD_HostColour;
+typedef SDD_HostColour *SDD_Row;
 
 static void SDD_Name(Host_PollDisplay)(ARMul_State *state)
 {
   RefreshMouse(state);
+  updateDisplay(0, 0, 800, 600, 1);
 }
 
 static void SDD_Name(Host_ChangeMode)(ARMul_State *state,int width,int height,
@@ -228,23 +226,32 @@ static void SDD_Name(Host_ChangeMode)(ARMul_State *state,int width,int height,
 
 static SDD_HostColour SDD_Name(Host_GetColour)(ARMul_State *state,uint_fast16_t col)
 {
+  // TODO: CHECK THIS!
+  /* Convert to 5-bit component values */
+  int r = (col & 0x00f) << 1;
+  int g = (col & 0x0f0) >> 3;
+  int b = (col & 0xf00) >> 7;
+  /* May want to tweak this a bit at some point? */
+  r |= r>>4;
+  g |= g>>4;
+  b |= b>>4;
+  return (r<<24) | (g<<16) | (b<<8) | 0xFF;
+
   return 0;
 }
 
 static void SDD_Name(Host_SkipPixels)(ARMul_State *state,SDD_Row *row,
                                unsigned int count)
 {
-  
+  (*row) += count;
 }
 
 static SDD_Row SDD_Name(Host_BeginRow)(ARMul_State *state,int row,int offset)
 {
-  SDD_Row newRow;
-  newRow.x = 0;
-  newRow.y = 0;
-  newRow.width = 0;
+  
+  SDD_Row dibbmp = (unsigned int*)screenbmp;
 
-  return newRow;
+  return &dibbmp[(MonitorHeight-(row+1))*MonitorWidth+offset];
 }
 
 const int SDD_RowsAtOnce = 1;
@@ -257,19 +264,21 @@ static void SDD_Name(Host_EndRow)(ARMul_State *state,SDD_Row *row)
 static void SDD_Name(Host_WritePixel)(ARMul_State *state,SDD_Row *row,
                                SDD_HostColour col)
 {
-  
+  *(*row)++ = col;
 }
 
 static void SDD_Name(Host_WritePixels)(ARMul_State *state,SDD_Row *row,
                                 SDD_HostColour col,unsigned int count)
 {
-  
+  while(count--) {
+    *(*row)++ = col;
+  }
 }
 
-static ARMword *SDD_Name(Host_BeginUpdate)(ARMul_State *state,SDD_Row *row,
+static void SDD_Name(Host_BeginUpdate)(ARMul_State *state,SDD_Row *row,
                                     unsigned int count)
 {
-  return NULL;
+  
 }
 
 static void SDD_Name(Host_EndUpdate)(ARMul_State *state,SDD_Row *row)
@@ -853,228 +862,65 @@ DisplayKbd_InitHost(ARMul_State *state)
   EventQ_Insert(state,ARMul_Time+POLLGAP*AUTOREFRESHPOLL,RefreshDisplay);
 }
 
-void VIDC_PutVal(ARMul_State *state,ARMword address, ARMword data,int bNw)
-{
-  unsigned int addr, val;
-
-  addr=(data>>24) & 255;
-  val=data & 0xffffff;
-
-  if (!(addr & 0xc0)) {
-    int Log, Sup,Red,Green,Blue;
-
-    /* This lot presumes its not 8bpp mode! */
-    Log=(addr>>2) & 15;
-    Sup=(val >> 12) & 1;
-    Blue=(val >> 8) & 15;
-    Green=(val >> 4) & 15;
-    Red=val & 15;
-#ifdef DEBUG_VIDCREGS
-    fprintf(stderr,"VIDC Palette write: Logical=%d Physical=(%d,%d,%d,%d)\n",
-      Log,Sup,Red,Green,Blue);
-#endif
-    VideoRelUpdateAndForce(DC.MustResetPalette,VIDC.Palette[Log],(val & 0x1fff));
-    return;
-  };
-
-  addr&=~3;
-  switch (addr) {
-    case 0x40: /* Border col */
-#ifdef DEBUG_VIDCREGS
-      fprintf(stderr,"VIDC border colour write val=0x%x\n",val);
-#endif
-      VideoRelUpdateAndForce(DC.MustResetPalette,VIDC.BorderCol,(val & 0x1fff));
-      break;
-
-    case 0x44: /* Cursor palette log col 1 */
-#ifdef DEBUG_VIDCREGS
-      fprintf(stderr,"VIDC cursor log col 1 write val=0x%x\n",val);
-#endif
-      VideoRelUpdateAndForce(DC.MustResetPalette,VIDC.CursorPalette[0],(val & 0x1fff));
-      break;
-
-    case 0x48: /* Cursor palette log col 2 */
-#ifdef DEBUG_VIDCREGS
-      fprintf(stderr,"VIDC cursor log col 2 write val=0x%x\n",val);
-#endif
-      VideoRelUpdateAndForce(DC.MustResetPalette,VIDC.CursorPalette[1],(val & 0x1fff));
-      break;
-
-    case 0x4c: /* Cursor palette log col 3 */
-#ifdef DEBUG_VIDCREGS
-      fprintf(stderr,"VIDC cursor log col 3 write val=0x%x\n",val);
-#endif
-      VideoRelUpdateAndForce(DC.MustResetPalette,VIDC.CursorPalette[2],(val & 0x1fff));
-      break;
-
-    case 0x60: /* Stereo image reg 7 */
-    case 0x64: /* Stereo image reg 0 */
-    case 0x68: /* Stereo image reg 1 */
-    case 0x6c: /* Stereo image reg 2 */
-    case 0x70: /* Stereo image reg 3 */
-    case 0x74: /* Stereo image reg 4 */
-    case 0x78: /* Stereo image reg 5 */
-    case 0x7c: /* Stereo image reg 6 */
-#ifdef DEBUG_VIDCREGS
-      fprintf(stderr,"VIDC stereo image reg write val=0x%x\n",val);
-#endif
-      VIDC.StereoImageReg[(addr==0x60)?7:((addr-0x64)/4)]=val & 7;
-      break;
-
-    case 0x80:
-#ifdef DEBUG_VIDCREGS
-      fprintf(stderr,"VIDC Horiz cycle register val=%d\n",val>>14);
-#endif
-      VideoRelUpdateAndForce(DC.MustRedraw,VIDC.Horiz_Cycle,(val>>14) & 0x3ff);
-      break;
-
-    case 0x84:
-#ifdef DEBUG_VIDCREGS
-      fprintf(stderr,"VIDC Horiz sync width register val=%d\n",val>>14);
-#endif
-      VideoRelUpdateAndForce(DC.MustRedraw,VIDC.Horiz_SyncWidth,(val>>14) & 0x3ff);
-      break;
-
-    case 0x88:
-#ifdef DEBUG_VIDCREGS
-      fprintf(stderr,"VIDC Horiz border start register val=%d\n",val>>14);
-#endif
-      VideoRelUpdateAndForce(DC.MustRedraw,VIDC.Horiz_BorderStart,(val>>14) & 0x3ff);
-      break;
-
-    case 0x8c:
-#ifdef DEBUG_VIDCREGS
-      fprintf(stderr,"VIDC Horiz display start register val=%d\n",val>>14);
-#endif
-      VideoRelUpdateAndForce(DC.MustRedraw,VIDC.Horiz_DisplayStart,(val>>14) & 0x3ff);
-      resizeWindow((VIDC.Horiz_DisplayEnd-VIDC.Horiz_DisplayStart)*2,
-           VIDC.Vert_DisplayEnd-VIDC.Vert_DisplayStart);
-      break;
-
-    case 0x90:
-#ifdef DEBUG_VIDCREGS
-      fprintf(stderr,"VIDC Horiz display end register val=%d\n",val>>14);
-#endif
-      VideoRelUpdateAndForce(DC.MustRedraw,VIDC.Horiz_DisplayEnd,(val>>14) & 0x3ff);
-      resizeWindow((VIDC.Horiz_DisplayEnd-VIDC.Horiz_DisplayStart)*2,
-           VIDC.Vert_DisplayEnd-VIDC.Vert_DisplayStart);
-      break;
-
-    case 0x94:
-#ifdef DEBUG_VIDCREGS
-      fprintf(stderr,"VIDC horizontal border end register val=%d\n",val>>14);
-#endif
-      VideoRelUpdateAndForce(DC.MustRedraw,VIDC.Horiz_BorderEnd,(val>>14) & 0x3ff);
-      break;
-
-    case 0x98:
-#ifdef DEBUG_VIDCREGS
-      fprintf(stderr,"VIDC horiz cursor start register val=%d\n",val>>13);
-#endif
-      VIDC.Horiz_CursorStart=(val>>13) & 0x7ff;
-//      DC.MustRedraw = 1;
-///sash
-      break;
-
-    case 0x9c:
-#ifdef DEBUG_VIDCREGS
-      fprintf(stderr,"VIDC horiz interlace register val=%d\n",val>>14);
-#endif
-      VideoRelUpdateAndForce(DC.MustRedraw,VIDC.Horiz_Interlace,(val>>14) & 0x3ff);
-      break;
-
-    case 0xa0:
-#ifdef DEBUG_VIDCREGS
-      fprintf(stderr,"VIDC Vert cycle register val=%d\n",val>>14);
-#endif
-      VideoRelUpdateAndForce(DC.MustRedraw,VIDC.Vert_Cycle,(val>>14) & 0x3ff);
-      break;
-
-    case 0xa4:
-#ifdef DEBUG_VIDCREGS
-      fprintf(stderr,"VIDC Vert sync width register val=%d\n",val>>14);
-#endif
-      VideoRelUpdateAndForce(DC.MustRedraw,VIDC.Vert_SyncWidth,(val>>14) & 0x3ff);
-      break;
-
-    case 0xa8:
-#ifdef DEBUG_VIDCREGS
-      fprintf(stderr,"VIDC Vert border start register val=%d\n",val>>14);
-#endif
-      VideoRelUpdateAndForce(DC.MustRedraw,VIDC.Vert_BorderStart,(val>>14) & 0x3ff);
-      break;
-
-    case 0xac:
-#ifdef DEBUG_VIDCREGS
-      fprintf(stderr,"VIDC Vert disp start register val=%d\n",val>>14);
-#endif
-      VideoRelUpdateAndForce(DC.MustRedraw,VIDC.Vert_DisplayStart,((val>>14) & 0x3ff));
-      resizeWindow((VIDC.Horiz_DisplayEnd-VIDC.Horiz_DisplayStart)*2,
-           VIDC.Vert_DisplayEnd-VIDC.Vert_DisplayStart);
-      break;
-
-    case 0xb0:
-#ifdef DEBUG_VIDCREGS
-      fprintf(stderr,"VIDC Vert disp end register val=%d\n",val>>14);
-#endif
-      VideoRelUpdateAndForce(DC.MustRedraw,VIDC.Vert_DisplayEnd,(val>>14) & 0x3ff);
-      resizeWindow((VIDC.Horiz_DisplayEnd-VIDC.Horiz_DisplayStart)*2,
-           VIDC.Vert_DisplayEnd-VIDC.Vert_DisplayStart);
-      break;
-
-    case 0xb4:
-#ifdef DEBUG_VIDCREGS
-      fprintf(stderr,"VIDC Vert Border end register val=%d\n",val>>14);
-#endif
-      VideoRelUpdateAndForce(DC.MustRedraw,VIDC.Vert_BorderEnd,(val>>14) & 0x3ff);
-      break;
-
-    case 0xb8:
-#ifdef DEBUG_VIDCREGS
-      fprintf(stderr,"VIDC Vert cursor start register val=%d\n",val>>14);
-#endif
-      VIDC.Vert_CursorStart=(val>>14) & 0x3ff;
-      RefreshMouse(state);
-//sash
-      break;
-
-    case 0xbc:
-#ifdef DEBUG_VIDCREGS
-      fprintf(stderr,"VIDC Vert cursor end register val=%d\n",val>>14);
-#endif
-      VIDC.Vert_CursorEnd=(val>>14) & 0x3ff;
-      RefreshMouse(state);
-//sash
-      break;
-
-    case 0xc0:
-#ifdef DEBUG_VIDCREGS
-      fprintf(stderr,"VIDC Sound freq register val=%d\n",val);
-#endif
-      VIDC.SoundFreq=val & 0xff;
-      break;
-
-    case 0xe0:
-#ifdef DEBUG_VIDCREGS
-      fprintf(stderr,"VIDC Control register val=0x%x\n",val);
-#endif
-      VideoRelUpdateAndForce(DC.MustRedraw,VIDC.ControlReg,val & 0xffff);
-      break;
-
-    default:
-      fprintf(stderr,"Write to unknown VIDC register reg=0x%x val=0x%x\n",addr,val);
-      break;
-
-  }; /* Register switch */
-
-  emu_reset = 0;
-}
-
 #endif
 
 static void RefreshMouse(ARMul_State *state)
 {
+  SDD_Row curbmp = (unsigned int*)cursorbmp;
+  SDD_Row dibbmp = (unsigned int*)screenbmp;
+  int offset, pix, repeat;
+  int memptr;
+  int HorizPos;
+  int Height = ((int)VIDC.Vert_CursorEnd - (int)VIDC.Vert_CursorStart)*HD.YScale;
+  int VertPos;
+  int diboffs;
+  SDD_HostColour cursorPal[4];
   
+  DisplayDev_GetCursorPos(state,&HorizPos,&VertPos);
+  HorizPos = HorizPos*HD.XScale+HD.XOffset;
+  VertPos = VertPos*HD.YScale+HD.YOffset;
+  
+  if (Height < 0) Height = 0;
+  if (VertPos < 0) VertPos = 0;
+  
+  rMouseX = HorizPos;
+  rMouseY = VertPos;
+  rMouseHeight = Height;
+  
+  /* Cursor palette */
+  cursorPal[0] = 0;
+  for(int x=1; x<4; x++) {
+    cursorPal[x] = SDD_Name(Host_GetColour)(state,VIDC.CursorPalette[x]);
+  }
+  
+  offset=0;
+  memptr=MEMC.Cinit*16;
+  repeat=0;
+  memset(cursorbmp, 0, 32 * 32 * 4);
+  for (int y=0; y < Height; y++) {
+    if (offset < 512 * 1024) {
+      ARMword tmp[2];
+      
+      tmp[0]=MEMC.PhysRam[memptr/4];
+      tmp[1]=MEMC.PhysRam[memptr/4+1];
+      
+      for (int x=0; x < 32; x++) {
+        pix = ((tmp[x/16]>>((x & 15)*2)) & 3);
+        diboffs = rMouseX + x + (MonitorHeight - rMouseY - y - 1) * MonitorWidth;
+        
+        curbmp[x + (MonitorHeight - y - 1) * 32] =
+        (pix || diboffs < 0) ?
+        cursorPal[pix] : dibbmp[diboffs];
+      } /* x */
+    } else {
+      return;
+    }
+    if (++repeat == HD.YScale) {
+      memptr+=8;
+      offset+=8;
+      repeat = 0;
+    }
+  } /* y */
 }
 
 int
