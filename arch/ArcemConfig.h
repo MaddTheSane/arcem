@@ -49,9 +49,9 @@ typedef enum ArcemConfig_MemSize_e {
 } ArcemConfig_MemSize;
 
 typedef enum ArcemConfig_Processor_e {
-  Processor_ARM2,                 // ARM 2 
-  Processor_ARM250,               // ARM 2AS
-  Processor_ARM3                  // ARM 2AS
+  Processor_ARM2,                 //!< ARM 2
+  Processor_ARM250,               //!< ARM 2AS
+  Processor_ARM3                  //!< ARM 2AS
 } ArcemConfig_Processor;
 
 typedef enum ArcemConfig_DisplayDriver_e {
@@ -81,10 +81,10 @@ typedef struct ArcemConfig_s {
   /* Platform-specific bits */
 #if defined(SYSTEM_riscos_single)
   ArcemConfig_DisplayDriver eDisplayDriver;
-  bool bRedBlueSwap; /* Red/blue swap 16bpp output */
-  bool bAspectRatioCorrection; /* Apply H/V scaling for aspect ratio correction */
-  bool bUpscale; /* Allow upscaling to fill screen */
-  bool bNoLowColour; /* Disable 1/2/4bpp modes */
+  bool bRedBlueSwap; /*!< Red/blue swap 16bpp output */
+  bool bAspectRatioCorrection; /*!< Apply H/V scaling for aspect ratio correction */
+  bool bUpscale; /*!< Allow upscaling to fill screen */
+  bool bNoLowColour; /*!< Disable 1/2/4bpp modes */
   int iMinResX,iMinResY;
   int iLCDResX,iLCDResY;
   int iTweakMenuKey1,iTweakMenuKey2;

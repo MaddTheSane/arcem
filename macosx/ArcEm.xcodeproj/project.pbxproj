@@ -212,6 +212,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D1F01DD50293336E01CDBB35 /* mac */,
 				D1E0F9CF02B41B0301D1F43F /* arch */,
 				D1E0F9E202B41B0301D1F43F /* armcopro.c */,
 				D1E0F9E302B41B0301D1F43F /* armdefs.h */,
@@ -226,7 +227,6 @@
 				D1E0F9F502B41B0301D1F43F /* dagstandalone.h */,
 				557C2ACE20CAE8D00084CBDB /* hostfs.c */,
 				557C2ACF20CAE8D00084CBDB /* hostfs.h */,
-				D1F01DD50293336E01CDBB35 /* mac */,
 			);
 			name = "Other Sources";
 			path = ..;

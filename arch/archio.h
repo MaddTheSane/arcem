@@ -23,7 +23,7 @@ struct IOCStruct {
     unsigned char CurrentKeyVal;
   } kbd;
 
-  unsigned int LatchA;     /* NOTE: int's to allow -1 at startup */
+  unsigned int LatchA;     /*!< NOTE: int's to allow -1 at startup */
   unsigned int LatchAold;
   unsigned int LatchB;
   unsigned int LatchBold;
@@ -34,8 +34,8 @@ struct IOCStruct {
   bool Timer0CanInt;
   bool Timer1CanInt;
 
-  uint32_t IOCRate; /* Number of IOC clock ticks per emu cycle, in 16.16 fixed-point format */
-  uint32_t InvIOCRate; /* Inverse IOC rate, 16.16 */
+  uint32_t IOCRate; /*!< Number of IOC clock ticks per emu cycle, in 16.16 fixed-point format */
+  uint32_t InvIOCRate; /*!< Inverse IOC rate, 16.16 */
 };
 
 extern struct IOCStruct ioc;

@@ -133,6 +133,8 @@ int oldMouseY = 0;
 static void ProcessKey(ARMul_State *state);
 static void ProcessButton(ARMul_State *state);
 
+static void RefreshMouse(ARMul_State *state);
+
 /*-----------------------------------------------------------------------------
  * GenerateInvertedKeyTable - Turns the list of (symbol, row, col) tuples into
  * a list of just (row, col) tuples that are ordered by sym. This makes look
@@ -213,7 +215,7 @@ typedef struct PDD_Row {
 
 void PDD_Name(Host_PollDisplay)(ARMul_State *state)
 {
-	
+  RefreshMouse(state);
 }
 
 void PDD_Name(Host_ChangeMode)(ARMul_State *state,int width,int height,
