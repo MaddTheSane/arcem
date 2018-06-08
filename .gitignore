@@ -10,3 +10,8 @@ hexcmos*
 arcem*
 cygwin1.dll
 index.html
+.DS_Store
+/macosx/build/
+*.pbxuser
+xcuserdata/
+project.pbxproj/
