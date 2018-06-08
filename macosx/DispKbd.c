@@ -219,10 +219,7 @@ static void SDD_Name(Host_PollDisplay)(ARMul_State *state)
 }
 
 static void SDD_Name(Host_ChangeMode)(ARMul_State *state,int width,int height,
-                               int hz)
-{
-	
-}
+                                      int hz);
 
 static SDD_HostColour SDD_Name(Host_GetColour)(ARMul_State *state,uint_fast16_t col)
 {
@@ -236,8 +233,6 @@ static SDD_HostColour SDD_Name(Host_GetColour)(ARMul_State *state,uint_fast16_t 
   g |= g>>4;
   b |= b>>4;
   return (r<<24) | (g<<16) | (b<<8) | 0xFF;
-
-  return 0;
 }
 
 static void SDD_Name(Host_SkipPixels)(ARMul_State *state,SDD_Row *row,
@@ -248,7 +243,6 @@ static void SDD_Name(Host_SkipPixels)(ARMul_State *state,SDD_Row *row,
 
 static SDD_Row SDD_Name(Host_BeginRow)(ARMul_State *state,int row,int offset)
 {
-  
   SDD_Row dibbmp = (unsigned int*)screenbmp;
 
   return &dibbmp[(MonitorHeight-(row+1))*MonitorWidth+offset];
@@ -287,6 +281,16 @@ static void SDD_Name(Host_EndUpdate)(ARMul_State *state,SDD_Row *row)
 }
 
 #include "../arch/stddisplaydev.c"
+
+static void SDD_Name(Host_ChangeMode)(ARMul_State *state,int width,int height,
+                                      int hz)
+{
+  HD.Width = width;
+  HD.Height = height;
+  HD.XScale = 1;
+  HD.YScale = 1;
+  resizeWindow(HD.Width,HD.Height);
+}
 
 #if 0
 

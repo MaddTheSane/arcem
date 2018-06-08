@@ -25,6 +25,7 @@
 #import "PreferenceController.h"
 #import "ArcemView.h"
 #import "KeyTable.h"
+#include "ArcemConfig.h"
 
 #import "arch/armarc.h"
 #import "arch/fdc1772.h"
@@ -40,6 +41,7 @@
 {
     if (self = [super init])
     {
+        ArcemConfig_SetupDefaults();
         NSMutableDictionary *defaultValues;
         NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"arcem"];
         
@@ -506,6 +508,26 @@
         free(screenPlanes);
     if (cursorPlanes)
         free(cursorPlanes);
+}
+
+- (IBAction)menuHDMount0:(id)sender
+{
+    
+}
+
+- (IBAction)menuHDMount1:(id)sender
+{
+    
+}
+
+- (IBAction)menuHDEject0:(id)sender
+{
+    
+}
+
+- (IBAction)menuHDEject1:(id)sender
+{
+    
 }
 
 @end

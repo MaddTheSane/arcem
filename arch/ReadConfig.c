@@ -38,7 +38,7 @@ int ReadConfigFile(ARMul_State *state)
     basename2 = ".arcemrc";
 #elif defined(MACOSX)
     envvar = "HOME";
-    basename2 = "arcem/.arcemrc";
+    basename2 = "arcem/arcemrc";
 #elif defined(__riscos__)
     envvar = "ArcEm$Dir";
     basename2 = "/arcemrc";

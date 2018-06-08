@@ -98,6 +98,12 @@
 - (IBAction)menuEject2:(id)sender;
 - (IBAction)menuEject3:(id)sender;
 
+- (IBAction)menuHDMount0:(id)sender;
+- (IBAction)menuHDMount1:(id)sender;
+
+- (IBAction)menuHDEject0:(id)sender;
+- (IBAction)menuHDEject1:(id)sender;
+
 - (IBAction)menuDoubleX:(id)sender;
 - (IBAction)menuDoubleY:(id)sender;
 
