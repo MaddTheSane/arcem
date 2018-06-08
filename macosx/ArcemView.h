@@ -46,7 +46,7 @@
     // Scaling info - over the top, but so we're not converting types all the time
     // when rendering the screen.
     BOOL bXScale, bYScale;
-    float fXScale, fYScale;
+    CGFloat fXScale, fYScale;
     int nXScale, nYScale;
 
     const char *strErrorMsg;

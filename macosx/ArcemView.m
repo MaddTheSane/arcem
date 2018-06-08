@@ -39,9 +39,9 @@
 // acts like the lock.
 
 // Buffer for keyboard events
-#define KB_BUFFER_SIZE     20
-#define KEY_UP        1
-#define KEY_DOWN    0
+#define KB_BUFFER_SIZE  20
+#define KEY_UP          1
+#define KEY_DOWN        0
 int nVirtKey[KB_BUFFER_SIZE];
 int nKeyStat[KB_BUFFER_SIZE];
 int keyF;
@@ -201,14 +201,14 @@ extern int rMouseHeight;
     }
 
     r.size.width = fXScale * 32.0;
-    r.size.height = (float)(nYScale * rMouseHeight);
+    r.size.height = (CGFloat)(nYScale * rMouseHeight);
     r.origin.x = bounds.origin.x + (rMouseX * nXScale) - 1;
     r.origin.y = bounds.origin.y + (bounds.size.height - ((rMouseY + rMouseHeight) * nYScale)) + 1;
     
     bounds.size.width = 32.0;
-    bounds.size.height = (float)rMouseHeight;
+    bounds.size.height = (CGFloat)rMouseHeight;
     bounds.origin.x = 0.0;
-    bounds.origin.y = (float)(CURSOR_HEIGHT - rMouseHeight);
+    bounds.origin.y = (CGFloat)(CURSOR_HEIGHT - rMouseHeight);
     
     if (cursorImage)
     {
@@ -656,8 +656,8 @@ extern int rMouseHeight;
     
     // Get some of the prefs
     mouseEmulation = [defaults boolForKey: AEUseMouseEmulationKey];
-    adjustModifier = [defaults integerForKey: AEAdjustModifierKey];
-    menuModifier = [defaults integerForKey: AEMenuModifierKey];
+    adjustModifier = (int)[defaults integerForKey: AEAdjustModifierKey];
+    menuModifier = (int)[defaults integerForKey: AEMenuModifierKey];
 }
 
 
