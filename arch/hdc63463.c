@@ -1300,7 +1300,8 @@ static void WriteFormat_DoNextBufferFull(ARMul_State *state) {
   int sectorsleft=HDC.CommandData.WriteFormat.SectorsLeft;
   char *fillbuffer; /* A buffer which holds a block of data to write */
 
-  if (fillbuffer=malloc(8192),fillbuffer==NULL) {
+  fillbuffer=malloc(8192);
+  if (fillbuffer==NULL) {
     ControlPane_Error(1,"HDC:WriteFormat_DoNextBufferFull: Couldn't allocate memory for fillbuffer\n");
   }
 

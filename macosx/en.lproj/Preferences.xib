@@ -79,7 +79,7 @@
                                         <button imageHugsTitle="YES" id="15">
                                             <rect key="frame" x="36" y="176" width="283" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <buttonCell key="cell" type="check" title="Use keyboard modifiers for extra buttons" bezelStyle="regularSquare" imagePosition="leading" alignment="left" inset="2" id="46">
+                                            <buttonCell key="cell" type="check" title="Use keyboard modifiers for extra buttons" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="46">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
@@ -93,29 +93,29 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             <size key="cellSize" width="87" height="18"/>
                                             <size key="intercellSpacing" width="4" height="2"/>
-                                            <buttonCell key="prototype" type="radio" title="Radio" imagePosition="leading" alignment="left" inset="2" id="52">
+                                            <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="52">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
                                             <cells>
                                                 <column>
-                                                    <buttonCell type="radio" title="Alt" imagePosition="leading" alignment="left" state="on" inset="2" id="19">
+                                                    <buttonCell type="radio" title="Alt" imagePosition="left" alignment="left" state="on" inset="2" id="19">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
-                                                    <buttonCell type="radio" title="Command" imagePosition="leading" alignment="left" tag="1" inset="2" id="20">
+                                                    <buttonCell type="radio" title="Command" imagePosition="left" alignment="left" tag="1" inset="2" id="20">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
-                                                    <buttonCell type="radio" title="Control" imagePosition="leading" alignment="left" tag="2" inset="2" id="21">
+                                                    <buttonCell type="radio" title="Control" imagePosition="left" alignment="left" tag="2" inset="2" id="21">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
-                                                    <buttonCell type="radio" title="Function" imagePosition="leading" alignment="left" tag="3" inset="2" id="22">
+                                                    <buttonCell type="radio" title="Function" imagePosition="left" alignment="left" tag="3" inset="2" id="22">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
-                                                    <buttonCell type="radio" title="Shift" imagePosition="leading" alignment="left" tag="4" inset="2" id="23">
+                                                    <buttonCell type="radio" title="Shift" imagePosition="left" alignment="left" tag="4" inset="2" id="23">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
@@ -131,29 +131,29 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             <size key="cellSize" width="87" height="18"/>
                                             <size key="intercellSpacing" width="4" height="2"/>
-                                            <buttonCell key="prototype" type="radio" title="Radio" imagePosition="leading" alignment="left" inset="2" id="53">
+                                            <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="53">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
                                             <cells>
                                                 <column>
-                                                    <buttonCell type="radio" title="Alt" imagePosition="leading" alignment="left" inset="2" id="28">
+                                                    <buttonCell type="radio" title="Alt" imagePosition="left" alignment="left" inset="2" id="28">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
-                                                    <buttonCell type="radio" title="Command" imagePosition="leading" alignment="left" state="on" tag="1" inset="2" id="29">
+                                                    <buttonCell type="radio" title="Command" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="29">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
-                                                    <buttonCell type="radio" title="Control" imagePosition="leading" alignment="left" inset="2" id="25">
+                                                    <buttonCell type="radio" title="Control" imagePosition="left" alignment="left" inset="2" id="25">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
-                                                    <buttonCell type="radio" title="Function" imagePosition="leading" alignment="left" inset="2" id="26">
+                                                    <buttonCell type="radio" title="Function" imagePosition="left" alignment="left" inset="2" id="26">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
-                                                    <buttonCell type="radio" title="Shift" imagePosition="leading" alignment="left" inset="2" id="27">
+                                                    <buttonCell type="radio" title="Shift" imagePosition="left" alignment="left" inset="2" id="27">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
