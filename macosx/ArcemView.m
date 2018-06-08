@@ -441,7 +441,7 @@ extern int rMouseHeight;
  */
 - (void)mouseMoved:(NSEvent *)theEvent
 {
-    CGMouseDelta x, y;
+    int32_t x, y;
 
     if (mouseMF == 0)
     {
@@ -575,7 +575,7 @@ extern int rMouseHeight;
 {
     if (captureMouse)
     {
-        CGMouseDelta x, y;
+        int32_t x, y;
 
         if (mouseMF == 0)
         {
@@ -681,6 +681,7 @@ extern int rMouseHeight;
 {
     [screenImage release];
     [cursorImage release];
+	[super dealloc];
 }
 
 @end

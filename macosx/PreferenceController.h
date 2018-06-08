@@ -31,10 +31,10 @@ extern NSString *AEMenuModifierKey;
 extern NSString *AEDirectoryKey;
 
 @interface PreferenceController : NSWindowController {
-    IBOutlet id useMouseEmulation;
-    IBOutlet id adjustModifier;
-    IBOutlet id menuModifier;
-    IBOutlet id directoryText;
+    IBOutlet NSButton *useMouseEmulation;
+    IBOutlet NSMatrix *adjustModifier;
+    IBOutlet NSMatrix *menuModifier;
+    IBOutlet NSTextField *directoryText;
 
     ArcemView *view;
 }
@@ -44,6 +44,6 @@ extern NSString *AEDirectoryKey;
 - (IBAction)changeMenuModifier:(id)sender;
 - (IBAction)changeDirText:(id)sender;
 - (IBAction)chooseButton:(id)sender;
-- (void)setView: (ArcemView *)aview;
+@property (assign) ArcemView *view;
 
 @end

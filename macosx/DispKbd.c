@@ -27,19 +27,12 @@
 
 #include "armdefs.h"
 #include "armarc.h"
+#include "armemu.h"
 #include "arch/keyboard.h"
-#include "arch/DispKbd.h"
+#include "arch/displaydev.h"
 #include "win.h"
 #include "KeyTable.h"
 #include "ControlPane.h"
-
-#ifndef BIG_ENDIAN
-#define BIG_ENDIAN
-#endif
-
-#ifndef HOST_BIGENDIAN
-#define HOST_BIGENDIAN
-#endif
 
 #define HD HOSTDISPLAY
 #define DC DISPLAYCONTROL
@@ -211,11 +204,79 @@ DisplayKbd_PollHost(ARMul_State *state)
   return 0;
 }
 
+#define PDD_Name(x) pdd_##x
+typedef struct PDD_Row {
+  int hi;
+} PDD_Row;
+
+void PDD_Name(Host_PollDisplay)(ARMul_State *state)
+{
+	
+}
+
+void PDD_Name(Host_ChangeMode)(ARMul_State *state,int width,int height,
+							   int depth,int hz)
+{
+	
+}
+
+void PDD_Name(Host_SetPaletteEntry)(ARMul_State *state,int i,
+									uint_fast16_t phys)
+{
+	
+}
+
+void PDD_Name(Host_SetBorderColour)(ARMul_State *state,uint_fast16_t phys)
+{
+  
+}
+
+void PDD_Name(Host_DrawBorderRect)(ARMul_State *state,int x,int y,int width,
+                                   int height)
+{
+  
+}
+
+PDD_Row PDD_Name(Host_BeginRow)(ARMul_State *state,int row,int offset,
+                                int *alignment)
+{
+  PDD_Row newRow;
+  newRow.hi = 0;
+  
+  return newRow;
+}
+
+void PDD_Name(Host_EndRow)(ARMul_State *state,PDD_Row *row)
+{
+  
+}
+
+ARMword *PDD_Name(Host_BeginUpdate)(ARMul_State *state,PDD_Row *row,
+                                    unsigned int count,int *outoffset)
+{
+  return NULL;
+}
+
+void PDD_Name(Host_EndUpdate)(ARMul_State *state,PDD_Row *row)
+{
+  
+}
+
+void PDD_Name(Host_AdvanceRow)(ARMul_State *state,PDD_Row *row,
+                               unsigned int count)
+{
+  
+}
+
+#include "../arch/paldisplaydev.c"
+
+#if 0
 
 /*----------------------------------------------------------------------------*/
 /* Also borrowed from GDK (with a little rework).  Get the XPixel value (as
    passed to XPutPixel) based on 16 bit colour values                         */
 static unsigned long get_pixelval(unsigned int red, unsigned int green, unsigned int blue) {
+	
     return (((red   >> (16 - HD.red_prec))   << HD.red_shift)   +
             ((green >> (16 - HD.green_prec)) << HD.green_shift) +
             ((blue  >> (16 - HD.blue_prec))  << HD.blue_shift));
@@ -678,7 +739,7 @@ RefreshDisplay(ARMul_State *state,CycleCount nowtime)
         updateDisplay(0, DC.miny, 800, (DC.maxy - DC.miny) + 1, 0);
     }
 } /* RefreshDisplay */
-
+#endif
 
 /*-----------------------------------------------------------------------------
  * ProcessKey - Converts the keycode into coordinates and places them in
@@ -758,6 +819,7 @@ static void ProcessButton(ARMul_State *state)
     }
 }; /* ProcessButton */
 
+#if 0
 void
 DisplayKbd_InitHost(ARMul_State *state)
 {
@@ -999,4 +1061,18 @@ void VIDC_PutVal(ARMul_State *state,ARMword address, ARMword data,int bNw)
   }; /* Register switch */
 
   emu_reset = 0;
+}
+
+#endif
+
+int
+Kbd_PollHostKbd(ARMul_State *state)
+{
+  return -1;
+}
+
+int
+DisplayDev_Init(ARMul_State *state)
+{
+  return -1;
 }

@@ -106,7 +106,7 @@ void arcem_exit(char* msg)
 {
     NSArray *params = anObject;
     NSMutableData *screen, *cursor;
-    NSString *dir;
+    NSURL *dir;
     
     pool = [[NSAutoreleasePool alloc] init];
 
@@ -118,10 +118,9 @@ void arcem_exit(char* msg)
     screenbmp = [screen mutableBytes];
     cursorbmp = [cursor mutableBytes];
 
-    dir = [[NSUserDefaults standardUserDefaults] stringForKey:AEDirectoryKey];
-    [dir getCString: arcemDir
-          maxLength: 256];
-    
+    dir = [[NSUserDefaults standardUserDefaults] URLForKey:AEDirectoryKey];
+	strlcpy(arcemDir, dir.fileSystemRepresentation, sizeof(arcemDir));
+	
     // Start ArcEm
     dagstandalone();
 

@@ -41,7 +41,7 @@
     if (self = [super init])
     {
         NSMutableDictionary *defaultValues;
-        NSString *path = [NSString stringWithFormat: @"%s/arcem", getenv("HOME")];
+		NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"arcem"];
         
         // Create the screen bitmap and image
         screenBmp = [[NSMutableData alloc] initWithLength: 800 * 600 * 3];
@@ -84,13 +84,13 @@
         defaultValues = [NSMutableDictionary dictionary];
 
         // ...
-        [defaultValues setObject: [NSNumber numberWithBool: YES]
+        [defaultValues setObject: @YES
                           forKey: AEUseMouseEmulationKey];
-        [defaultValues setObject: [NSNumber numberWithInt: VK_ALT]
+        [defaultValues setObject: @(VK_ALT)
                           forKey: AEMenuModifierKey];
-        [defaultValues setObject: [NSNumber numberWithInt: VK_COMMAND]
+        [defaultValues setObject: @(VK_COMMAND)
                           forKey: AEAdjustModifierKey];
-        [defaultValues setObject: path
+        [defaultValues setObject: [NSURL fileURLWithPath:path]
                           forKey: AEDirectoryKey];
 
         [[NSUserDefaults standardUserDefaults] registerDefaults: defaultValues];
@@ -360,7 +360,7 @@
         // One assumes it we managed to select a file then it exists...
         
         // Force the FDC to reload that drive
-        FDC_InsertFloppy(mountDrive, [path cString]);
+        FDC_InsertFloppy(mountDrive, [path fileSystemRepresentation]);
 
         // Now disable the insert menu option and enable the eject menu option
         [menuItemsMount[mountDrive] setEnabled: NO];
@@ -371,7 +371,7 @@
 
 /*------------------------------------------------------------------------------
  *
- */
+ *
 - (void)openPanelHardDiscDidEnd: (NSOpenPanel *)openPanel
                      returnCode: (int)returnCode
                     contextInfo: (void *)x
@@ -396,6 +396,7 @@
         [menuItemsEject[mountDrive] setEnabled: YES];
     }
 }
+*/
 
 
 /*------------------------------------------------------------------------------
