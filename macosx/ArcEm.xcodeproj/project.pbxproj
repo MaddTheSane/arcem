@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		557C2ACD20CAE8810084CBDB /* c99.h in Headers */ = {isa = PBXBuildFile; fileRef = 557C2ACC20CAE8810084CBDB /* c99.h */; };
 		557C2AD120CAE8D00084CBDB /* hostfs.h in Headers */ = {isa = PBXBuildFile; fileRef = 557C2ACF20CAE8D00084CBDB /* hostfs.h */; };
+		557C2AD320CB2B300084CBDB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 557C2AD220CB2B300084CBDB /* Images.xcassets */; };
 		5582DD5720C8C14900931D55 /* ArcemView.h in Headers */ = {isa = PBXBuildFile; fileRef = D157A5F10291D6F801123251 /* ArcemView.h */; };
 		5582DD5820C8C14900931D55 /* ArcemController.h in Headers */ = {isa = PBXBuildFile; fileRef = D157A5F60291D94401123251 /* ArcemController.h */; };
 		5582DD5920C8C14900931D55 /* ArcemEmulator.h in Headers */ = {isa = PBXBuildFile; fileRef = D157A5FA0291DA6C01123251 /* ArcemEmulator.h */; };
@@ -31,7 +32,6 @@
 		5582DD7420C8C14900931D55 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		5582DD7520C8C14900931D55 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		5582DD7620C8C14900931D55 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D1CA0AAF029C4D9401D1F43F /* Credits.rtf */; };
-		5582DD7720C8C14900931D55 /* arcem.icns in Resources */ = {isa = PBXBuildFile; fileRef = D1E92BDF02A5470B01D1F43F /* arcem.icns */; };
 		5582DD7820C8C14900931D55 /* Preferences.nib in Resources */ = {isa = PBXBuildFile; fileRef = D19819E202CA867701D1F43F /* Preferences.nib */; };
 		5582DD7A20C8C14900931D55 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		5582DD7B20C8C14900931D55 /* ArcemView.m in Sources */ = {isa = PBXBuildFile; fileRef = D157A5F20291D6F801123251 /* ArcemView.m */; };
@@ -83,6 +83,7 @@
 		557C2ACC20CAE8810084CBDB /* c99.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = c99.h; sourceTree = "<group>"; };
 		557C2ACE20CAE8D00084CBDB /* hostfs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = hostfs.c; sourceTree = "<group>"; };
 		557C2ACF20CAE8D00084CBDB /* hostfs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = hostfs.h; sourceTree = "<group>"; };
+		557C2AD220CB2B300084CBDB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5582DD9520C8C14900931D55 /* Info-ArcEm__Upgraded_.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-ArcEm__Upgraded_.plist"; sourceTree = "<group>"; };
 		5582DD9620C8C14900931D55 /* ArcEm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArcEm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55F89C2220C8C79700374D5B /* cp15.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = cp15.c; sourceTree = "<group>"; };
@@ -133,7 +134,6 @@
 		D1E0F9F102B41B0301D1F43F /* armsupp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = armsupp.c; sourceTree = "<group>"; };
 		D1E0F9F402B41B0301D1F43F /* dagstandalone.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = dagstandalone.c; sourceTree = "<group>"; };
 		D1E0F9F502B41B0301D1F43F /* dagstandalone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = dagstandalone.h; sourceTree = "<group>"; };
-		D1E92BDF02A5470B01D1F43F /* arcem.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = arcem.icns; sourceTree = "<group>"; };
 		D1F01D8302931F6101CDBB35 /* macarcem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = macarcem.h; sourceTree = "<group>"; };
 		D1F01DD60293339001CDBB35 /* DispKbd.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = DispKbd.c; sourceTree = "<group>"; usesTabs = 0; };
 		D1F01DD8029333DB01CDBB35 /* win.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = win.h; sourceTree = "<group>"; };
@@ -235,11 +235,11 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				557C2AD220CB2B300084CBDB /* Images.xcassets */,
 				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,
 				D19819E202CA867701D1F43F /* Preferences.nib */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				D1CA0AAF029C4D9401D1F43F /* Credits.rtf */,
-				D1E92BDF02A5470B01D1F43F /* arcem.icns */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -397,7 +397,7 @@
 				5582DD7420C8C14900931D55 /* MainMenu.nib in Resources */,
 				5582DD7520C8C14900931D55 /* InfoPlist.strings in Resources */,
 				5582DD7620C8C14900931D55 /* Credits.rtf in Resources */,
-				5582DD7720C8C14900931D55 /* arcem.icns in Resources */,
+				557C2AD320CB2B300084CBDB /* Images.xcassets in Resources */,
 				5582DD7820C8C14900931D55 /* Preferences.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -540,6 +540,7 @@
 		5582DD9220C8C14900931D55 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = arcem;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
@@ -574,6 +575,7 @@
 		5582DD9320C8C14900931D55 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = arcem;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
