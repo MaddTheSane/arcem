@@ -311,14 +311,11 @@
     NSOpenPanel *panel = [NSOpenPanel openPanel];
 
     mountDrive = 2;
-    
-    [panel beginSheetForDirectory: nil
-                             file: nil
-                            types: nil
-                   modalForWindow: [arcemView window]
-                    modalDelegate: self
-                   didEndSelector: @selector(openPanelDidEnd:returnCode:contextInfo:)
-                      contextInfo: nil];
+  
+    [panel beginSheetModalForWindow: [arcemView window]
+                  completionHandler: ^(NSModalResponse result) {
+                      [self openPanelDidEnd:panel returnCode:result contextInfo:NULL];
+    }];
 }
 
 
@@ -348,7 +345,7 @@
  *
  */
 - (void)openPanelDidEnd: (NSOpenPanel *)openPanel
-             returnCode: (int)returnCode
+             returnCode: (NSModalResponse)returnCode
             contextInfo: (void *)x
 {
     if (returnCode == NSOKButton)

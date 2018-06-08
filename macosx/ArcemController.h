@@ -97,10 +97,10 @@
 - (void)destroyEmulatorThread;
 
 - (void)openPanelDidEnd: (NSOpenPanel *)openPanel
-             returnCode: (int)returnCode
+             returnCode: (NSModalResponse)returnCode
             contextInfo: (void *)x;
 - (void)openPanelHardDiscDidEnd: (NSOpenPanel *)openPanel
-                     returnCode: (int)returnCode
+                     returnCode: (NSModalResponse)returnCode
                     contextInfo: (void *)x;
 
 @end

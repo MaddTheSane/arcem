@@ -1138,7 +1138,8 @@ static void CheckData_DoNextBufferFull(ARMul_State *state) {
     int retval;
 
     /* Fill here up! */
-    if (retval=fread(tmpbuff,1,256,HDC.HardFile[HDC.CommandData.ReadData.US]),retval!=256)
+    retval=fread(tmpbuff,1,256,HDC.HardFile[HDC.CommandData.ReadData.US]);
+    if (retval!=256)
     {
       fprintf(stderr,"HDC: CheckData_DoNextBufferFull - returning data err - retval=0x%x\n",retval);
       /* End of command */

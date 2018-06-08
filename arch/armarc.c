@@ -271,7 +271,8 @@ ARMul_MemoryInit(ARMul_State *state)
     chdir(arcemDir);
   }
 #endif
-  if (ROMFile = fopen(hArcemConfig.sRomImageName, "rb"), ROMFile == NULL) {
+  ROMFile = fopen(hArcemConfig.sRomImageName, "rb");
+  if (ROMFile == NULL) {
     ControlPane_Error(2,"Couldn't open ROM file");
   }
 

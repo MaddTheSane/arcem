@@ -30,6 +30,7 @@
 #include "armemu.h"
 #include "arch/keyboard.h"
 #include "arch/displaydev.h"
+#include "macarcem.h"
 #include "win.h"
 #include "KeyTable.h"
 #include "ControlPane.h"
@@ -40,8 +41,8 @@
 #define KEYREENABLEDELAY 1000
 #define AUTOREFRESHPOLL 2500
 
-#define MonitorWidth 800
-#define MonitorHeight 600
+#define MonitorWidth SCREEN_WIDTH
+#define MonitorHeight SCREEN_HEIGHT
 
 #define GETRED(x)      (unsigned char)((x >> 7) & 0xF1)
 #define GETGREEN(x)    (unsigned char)((x >> 2) & 0xF1)
@@ -206,7 +207,8 @@ DisplayKbd_PollHost(ARMul_State *state)
 
 #define PDD_Name(x) pdd_##x
 typedef struct PDD_Row {
-  int hi;
+  int x,y; /*!< Current coordinates in pixels */
+  int width; /*!< Width of area being updated */
 } PDD_Row;
 
 void PDD_Name(Host_PollDisplay)(ARMul_State *state)
@@ -241,8 +243,10 @@ PDD_Row PDD_Name(Host_BeginRow)(ARMul_State *state,int row,int offset,
                                 int *alignment)
 {
   PDD_Row newRow;
-  newRow.hi = 0;
-  
+  newRow.x = 0;
+  newRow.y = 0;
+  newRow.width = 0;
+
   return newRow;
 }
 

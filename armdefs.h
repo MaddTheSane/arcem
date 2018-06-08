@@ -169,7 +169,7 @@ typedef struct {
 
 typedef uint32_t CycleCount;
 typedef int32_t CycleDiff;
-#define MAX_CYCLES_INTO_FUTURE LONG_MAX
+#define MAX_CYCLES_INTO_FUTURE INT32_MAX
 
 typedef void (*EventQ_Func)(ARMul_State *state,CycleCount nowtime);
 
@@ -221,44 +221,44 @@ typedef struct Vidc_Regs Vidc_Regs;
 
 struct ARMul_State {
    /* Most common stuff, current register file first to ease indexing */
-   ARMword Reg[16];           /* the current register file */
-   CycleCount NumCycles;      /* Number of cycles */
-   enum ARMStartIns NextInstr;/* Pipeline state */
-   unsigned abortSig;         /* Abort state */
-   ARMword Aborted;           /* sticky flag for aborts */
-   ARMword AbortAddr;         /* to keep track of Prefetch aborts */
-   ARMword Exception;         /* IRQ & FIQ pins */
-   Vidc_Regs *Display;        /* VIDC regs/host display struct */
-   arch_keyboard *Kbd;        /* Keyboard struct */
-   ARMword Bank;              /* the current register bank */
-   unsigned NtransSig;        /* MEMC USR/SVC flag, somewhat redundant with FastMapMode */
-   ARMword Base;              /* extra hand for base writeback */
+   ARMword Reg[16];           /*!< the current register file */
+   CycleCount NumCycles;      /*!< Number of cycles */
+   enum ARMStartIns NextInstr;/*!< Pipeline state */
+   unsigned abortSig;         /*!< Abort state */
+   ARMword Aborted;           /*!< sticky flag for aborts */
+   ARMword AbortAddr;         /*!< to keep track of Prefetch aborts */
+   ARMword Exception;         /*!< IRQ & FIQ pins */
+   Vidc_Regs *Display;        /*!< VIDC regs/host display struct */
+   arch_keyboard *Kbd;        /*!< Keyboard struct */
+   ARMword Bank;              /*!< the current register bank */
+   unsigned NtransSig;        /*!< MEMC USR/SVC flag, somewhat redundant with FastMapMode */
+   ARMword Base;              /*!< extra hand for base writeback */
 
    /* Event queue */
    EventQ_Entry EventQ[EVENTQ_SIZE];
    uint_fast8_t NumEvents;
 
    /* Fastmap stuff */
-   FastMapUInt FastMapMode;   /* Current access mode flags */
-   FastMapUInt FastMapInstrFuncOfs; /* Offset between the RAM/ROM data and the ARMEmuFunc data */
+   FastMapUInt FastMapMode;   /*!< Current access mode flags */
+   FastMapUInt FastMapInstrFuncOfs; /*!< Offset between the RAM/ROM data and the ARMEmuFunc data */
    FastMapEntry *FastMap;
 
    /* Less common stuff */   
-   ARMword RegBank[4][16];    /* all the registers */
-   ARMword instr, pc, temp;   /* saved register state */
-   ARMword loaded, decoded;   /* saved pipeline state */
+   ARMword RegBank[4][16];    /*!< all the registers */
+   ARMword instr, pc, temp;   /*!< saved register state */
+   ARMword loaded, decoded;   /*!< saved pipeline state */
 
    /* Rare stuff */
-   ARMul_CPInits *CPInit[16]; /* coprocessor initialisers */
-   ARMul_CPExits *CPExit[16]; /* coprocessor finalisers */
-   ARMul_LDCs *LDC[16];       /* LDC instruction */
-   ARMul_STCs *STC[16];       /* STC instruction */
-   ARMul_MRCs *MRC[16];       /* MRC instruction */
-   ARMul_MCRs *MCR[16];       /* MCR instruction */
-   ARMul_CDPs *CDP[16];       /* CDP instruction */
-   ARMul_CPReads *CPRead[16]; /* Read CP register */
-   ARMul_CPWrites *CPWrite[16]; /* Write CP register */
-   unsigned char *CPData[16]; /* Coprocessor data */
+   ARMul_CPInits *CPInit[16]; /*!< coprocessor initialisers */
+   ARMul_CPExits *CPExit[16]; /*!< coprocessor finalisers */
+   ARMul_LDCs *LDC[16];       /*!< LDC instruction */
+   ARMul_STCs *STC[16];       /*!< STC instruction */
+   ARMul_MRCs *MRC[16];       /*!< MRC instruction */
+   ARMul_MCRs *MCR[16];       /*!< MCR instruction */
+   ARMul_CDPs *CDP[16];       /*!< CDP instruction */
+   ARMul_CPReads *CPRead[16]; /*!< Read CP register */
+   ARMul_CPWrites *CPWrite[16]; /*!< Write CP register */
+   unsigned char *CPData[16]; /*!< Coprocessor data */
 
  };
 
