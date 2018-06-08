@@ -112,10 +112,11 @@ void arcem_exit(char* msg)
     
     pool = [[NSAutoreleasePool alloc] init];
 
-    disp = [params objectAtIndex: 0];
-    screen = [params objectAtIndex: 1];
-    cursor = [params objectAtIndex: 2];
-    controller = [params objectAtIndex: 3];
+    disp = [[params objectAtIndex: 0] retain];
+    screen = [[params objectAtIndex: 1] retain];
+    cursor = [[params objectAtIndex: 2] retain];
+    controller = [[params objectAtIndex: 3] retain];
+    [params release];
 
     screenbmp = [screen mutableBytes];
     cursorbmp = [cursor mutableBytes];
@@ -126,7 +127,14 @@ void arcem_exit(char* msg)
     // Start ArcEm
     dagstandalone();
 
+    [disp release];
+    disp = nil;
+    [screen release];
+    [cursor release];
+    [controller release];
+    controller = nil;
     [pool release];
+    pool = nil;
     [NSThread exit];
 
     return;
@@ -138,6 +146,7 @@ void arcem_exit(char* msg)
 - (void)threadKill
 {
     [pool release];
+    pool = nil;
     [NSThread exit];
 }
 

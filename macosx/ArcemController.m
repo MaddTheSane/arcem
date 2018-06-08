@@ -45,7 +45,7 @@
         
         // Create the screen bitmap and image
         screenBmp = [[NSMutableData alloc] initWithLength: 800 * 600 * 3];
-        screenPlanes = (unsigned char**)malloc(sizeof(char*) * 2);
+        screenPlanes = (unsigned char**)malloc(sizeof(unsigned char*) * 2);
         screenPlanes[0] = [screenBmp mutableBytes];
         screenPlanes[1] = NULL;
         memset(screenPlanes[0], 0, 800 * 600 * 3);
@@ -62,7 +62,7 @@
 
         // Create the cursor bitmap and image
         cursorBmp = [[NSMutableData alloc] initWithLength: 32 * 32 * 4];
-        cursorPlanes = (unsigned char**)malloc(sizeof(char*) * 2);
+        cursorPlanes = (unsigned char**)malloc(sizeof(unsigned char*) * 2);
         cursorPlanes[0] = [cursorBmp mutableBytes];
         cursorPlanes[1] = NULL;
         memset(cursorPlanes[0], 0, 32 * 32 * 4);
@@ -111,12 +111,12 @@
     emuThread = [[ArcemEmulator alloc] init];
 
     // List the parameters for the thread - the bitmaps, and the view to send the redraw to
-    params = [NSArray arrayWithObjects: arcemView, screenBmp, cursorBmp, self, nil];
+    params = @[arcemView, screenBmp, cursorBmp, self];
 
     // Run the processing thread
     [NSThread detachNewThreadSelector: @selector(threadStart:)
                              toTarget: emuThread
-                           withObject: params];
+                           withObject: (__bridge id)CFBridgingRetain(params)];
 
     // Pass the images to the view
     [arcemView setBitmapsWithScreen: screenImg
