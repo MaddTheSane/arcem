@@ -502,7 +502,6 @@
  */
 - (void)dealloc
 {
-    
     if (screenPlanes)
         free(screenPlanes);
     if (cursorPlanes)
