@@ -7,11 +7,11 @@ ROM*
 HardImage?
 FloppyImage?
 hexcmos*
-arcem*
+arcem
 cygwin1.dll
 index.html
 .DS_Store
 /macosx/build/
 *.pbxuser
 xcuserdata/
-project.pbxproj/
+project.xcworkspace/

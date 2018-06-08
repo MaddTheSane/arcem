@@ -96,7 +96,9 @@ void arcem_exit(char* msg)
 }
 
 
-@implementation ArcemEmulator
+@implementation ArcemEmulator {
+    NSAutoreleasePool *pool;
+}
 
 
 /*------------------------------------------------------------------------------

@@ -36,7 +36,7 @@ extern NSString *AEDirectoryKey;
     IBOutlet NSMatrix *menuModifier;
     IBOutlet NSTextField *directoryText;
 
-    ArcemView *view;
+    ArcemView *__weak view;
 }
 
 - (IBAction)changeMouseEmulation:(id)sender;
@@ -44,6 +44,6 @@ extern NSString *AEDirectoryKey;
 - (IBAction)changeMenuModifier:(id)sender;
 - (IBAction)changeDirText:(id)sender;
 - (IBAction)chooseButton:(id)sender;
-@property (assign) ArcemView *view;
+@property (weak) ArcemView *view;
 
 @end

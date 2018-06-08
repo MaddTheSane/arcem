@@ -41,7 +41,7 @@
     if (self = [super init])
     {
         NSMutableDictionary *defaultValues;
-		NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"arcem"];
+        NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"arcem"];
         
         // Create the screen bitmap and image
         screenBmp = [[NSMutableData alloc] initWithLength: 800 * 600 * 3];
@@ -145,6 +145,7 @@
  */
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
     int i;
 
     // Create an initial emulator thread
@@ -268,14 +269,12 @@
 
     mountDrive = 0;
 
-    [panel beginSheetForDirectory: nil
-                             file: nil
-                            types: nil
-                   modalForWindow: [arcemView window]
-                    modalDelegate: self
-                   didEndSelector: @selector(openPanelDidEnd:returnCode:contextInfo:)
-                      contextInfo: nil];
-}
+    [panel beginSheetModalForWindow: [arcemView window] completionHandler: ^(NSModalResponse result) {
+        if (result == NSOKButton)
+        {
+            [self changeDriveImageAtIndex:0 toURL:panel.URL];
+        }
+    }];}
 
 
 /*------------------------------------------------------------------------------
@@ -290,14 +289,12 @@
 
     mountDrive = 1;
 
-    [panel beginSheetForDirectory: nil
-                             file: nil
-                            types: nil
-                   modalForWindow: [arcemView window]
-                    modalDelegate: self
-                   didEndSelector: @selector(openPanelDidEnd:returnCode:contextInfo:)
-                      contextInfo: nil];
-}
+    [panel beginSheetModalForWindow: [arcemView window] completionHandler: ^(NSModalResponse result) {
+        if (result == NSOKButton)
+        {
+            [self changeDriveImageAtIndex:1 toURL:panel.URL];
+        }
+    }];}
 
 
 /*------------------------------------------------------------------------------
@@ -312,11 +309,12 @@
 
     mountDrive = 2;
   
-    [panel beginSheetModalForWindow: [arcemView window]
-                  completionHandler: ^(NSModalResponse result) {
-                      [self openPanelDidEnd:panel returnCode:result contextInfo:NULL];
-    }];
-}
+    [panel beginSheetModalForWindow: [arcemView window] completionHandler: ^(NSModalResponse result) {
+        if (result == NSOKButton)
+        {
+            [self changeDriveImageAtIndex:2 toURL:panel.URL];
+        }
+    }];}
 
 
 /*------------------------------------------------------------------------------
@@ -331,13 +329,12 @@
 
     mountDrive = 3;
 
-    [panel beginSheetForDirectory: nil
-                             file: nil
-                            types: nil
-                   modalForWindow: [arcemView window]
-                    modalDelegate: self
-                   didEndSelector: @selector(openPanelDidEnd:returnCode:contextInfo:)
-                      contextInfo: nil];
+    [panel beginSheetModalForWindow: [arcemView window] completionHandler: ^(NSModalResponse result) {
+        if (result == NSOKButton)
+        {
+            [self changeDriveImageAtIndex:3 toURL:panel.URL];
+        }
+    }];
 }
 
 
@@ -350,21 +347,21 @@
 {
     if (returnCode == NSOKButton)
     {
-        NSString *path = [openPanel filename];
-        
-        //NSLog(@"Open file %s for drive %d\n", [path cString], mountDrive);
-
-        // One assumes it we managed to select a file then it exists...
-        
-        // Force the FDC to reload that drive
-        FDC_InsertFloppy(mountDrive, [path fileSystemRepresentation]);
-
-        // Now disable the insert menu option and enable the eject menu option
-        [menuItemsMount[mountDrive] setEnabled: NO];
-        [menuItemsEject[mountDrive] setEnabled: YES];
+        [self changeDriveImageAtIndex:mountDrive toURL:openPanel.URL];
     }
 }
 
+- (void)changeDriveImageAtIndex: (int)fdNum toURL: (NSURL*)newfile
+{
+    // One assumes if we managed to select a file then it exists...
+    
+    // Force the FDC to reload that drive
+    FDC_InsertFloppy(fdNum, [newfile fileSystemRepresentation]);
+    
+    // Now disable the insert menu option and enable the eject menu option
+    [menuItemsMount[fdNum] setEnabled: NO];
+    [menuItemsEject[fdNum] setEnabled: YES];
+}
 
 /*------------------------------------------------------------------------------
  *
@@ -505,19 +502,11 @@
  */
 - (void)dealloc
 {
-
-    [preferenceController release];
     
     if (screenPlanes)
         free(screenPlanes);
     if (cursorPlanes)
         free(cursorPlanes);
-    [screenBmp release];
-    [cursorBmp release];
-    [screenImg release];
-    [cursorImg release];
-
-    [super dealloc];
 }
 
 @end

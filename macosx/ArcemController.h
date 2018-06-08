@@ -99,6 +99,7 @@
 - (void)openPanelDidEnd: (NSOpenPanel *)openPanel
              returnCode: (NSModalResponse)returnCode
             contextInfo: (void *)x;
+- (void)changeDriveImageAtIndex: (int)fdNum toURL: (NSURL*)newfile;
 - (void)openPanelHardDiscDidEnd: (NSOpenPanel *)openPanel
                      returnCode: (NSModalResponse)returnCode
                     contextInfo: (void *)x;

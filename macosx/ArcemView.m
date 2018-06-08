@@ -39,9 +39,9 @@
 // acts like the lock.
 
 // Buffer for keyboard events
-#define KB_BUFFER_SIZE 	20
-#define KEY_UP		1
-#define KEY_DOWN	0
+#define KB_BUFFER_SIZE     20
+#define KEY_UP        1
+#define KEY_DOWN    0
 int nVirtKey[KB_BUFFER_SIZE];
 int nKeyStat[KB_BUFFER_SIZE];
 int keyF;
@@ -671,17 +671,6 @@ extern int rMouseHeight;
     {
         strErrorMsg = message;
     }
-}
-
-
-/*------------------------------------------------------------------------------
- * dealloc - destructor
- */
-- (void)dealloc
-{
-    [screenImage release];
-    [cursorImage release];
-	[super dealloc];
 }
 
 @end
