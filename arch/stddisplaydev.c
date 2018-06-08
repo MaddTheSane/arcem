@@ -187,7 +187,7 @@ struct SDD_Name(DisplayInfo) {
   /* Raw VIDC registers - must come first! */
   struct Vidc_Regs Vidc;
 
-  struct {
+  struct Control_s {
     /* Values which get updated by VIDCPutVal */
 
     uint_fast16_t DirtyPalette; /* Bit flags of which palette entries have been modified */
@@ -214,7 +214,7 @@ struct SDD_Name(DisplayInfo) {
     int Auto_ForceRefresh; /* How many frames caused a forced refresh */
   } Control;
 
-  struct {
+  struct HostDisplay_s {
     /* The host must update these on calls to Host_ChangeMode */
     int Width,Height,XScale,YScale; /* Host display mode */
 

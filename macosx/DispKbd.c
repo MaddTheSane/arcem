@@ -198,7 +198,7 @@ static void MouseMoved(ARMul_State *state) {
 #endif
 }; /* MouseMoved */
 
-int
+static int
 DisplayKbd_PollHost(ARMul_State *state)
 {
   if (keyF) ProcessKey(state);
@@ -207,44 +207,39 @@ DisplayKbd_PollHost(ARMul_State *state)
   return 0;
 }
 
-#define PDD_Name(x) pdd_##x
-typedef struct PDD_Row {
+#define SDD_Name(x) sdd_##x
+typedef struct SDD_Row {
   int x,y; /*!< Current coordinates in pixels */
   int width; /*!< Width of area being updated */
-} PDD_Row;
+} SDD_Row;
 
-void PDD_Name(Host_PollDisplay)(ARMul_State *state)
+typedef uint32_t SDD_HostColour;
+
+static void SDD_Name(Host_PollDisplay)(ARMul_State *state)
 {
   RefreshMouse(state);
 }
 
-void PDD_Name(Host_ChangeMode)(ARMul_State *state,int width,int height,
-							   int depth,int hz)
+static void SDD_Name(Host_ChangeMode)(ARMul_State *state,int width,int height,
+                               int hz)
 {
 	
 }
 
-void PDD_Name(Host_SetPaletteEntry)(ARMul_State *state,int i,
-									uint_fast16_t phys)
+static SDD_HostColour SDD_Name(Host_GetColour)(ARMul_State *state,uint_fast16_t col)
 {
-	
+  return 0;
 }
 
-void PDD_Name(Host_SetBorderColour)(ARMul_State *state,uint_fast16_t phys)
+static void SDD_Name(Host_SkipPixels)(ARMul_State *state,SDD_Row *row,
+                               unsigned int count)
 {
   
 }
 
-void PDD_Name(Host_DrawBorderRect)(ARMul_State *state,int x,int y,int width,
-                                   int height)
+static SDD_Row SDD_Name(Host_BeginRow)(ARMul_State *state,int row,int offset)
 {
-  
-}
-
-PDD_Row PDD_Name(Host_BeginRow)(ARMul_State *state,int row,int offset,
-                                int *alignment)
-{
-  PDD_Row newRow;
+  SDD_Row newRow;
   newRow.x = 0;
   newRow.y = 0;
   newRow.width = 0;
@@ -252,29 +247,37 @@ PDD_Row PDD_Name(Host_BeginRow)(ARMul_State *state,int row,int offset,
   return newRow;
 }
 
-void PDD_Name(Host_EndRow)(ARMul_State *state,PDD_Row *row)
+const int SDD_RowsAtOnce = 1;
+
+static void SDD_Name(Host_EndRow)(ARMul_State *state,SDD_Row *row)
 {
   
 }
 
-ARMword *PDD_Name(Host_BeginUpdate)(ARMul_State *state,PDD_Row *row,
-                                    unsigned int count,int *outoffset)
+static void SDD_Name(Host_WritePixel)(ARMul_State *state,SDD_Row *row,
+                               SDD_HostColour col)
+{
+  
+}
+
+static void SDD_Name(Host_WritePixels)(ARMul_State *state,SDD_Row *row,
+                                SDD_HostColour col,unsigned int count)
+{
+  
+}
+
+static ARMword *SDD_Name(Host_BeginUpdate)(ARMul_State *state,SDD_Row *row,
+                                    unsigned int count)
 {
   return NULL;
 }
 
-void PDD_Name(Host_EndUpdate)(ARMul_State *state,PDD_Row *row)
+static void SDD_Name(Host_EndUpdate)(ARMul_State *state,SDD_Row *row)
 {
   
 }
 
-void PDD_Name(Host_AdvanceRow)(ARMul_State *state,PDD_Row *row,
-                               unsigned int count)
-{
-  
-}
-
-#include "../arch/paldisplaydev.c"
+#include "../arch/stddisplaydev.c"
 
 #if 0
 
@@ -648,12 +651,11 @@ static void RefreshMouse(ARMul_State *state) {
   int x,y,height,offset, pix;
   int memptr;
   unsigned short *ImgPtr;
-  int HorizPos = (int)VIDC.Horiz_CursorStart - (int)VIDC.Horiz_DisplayStart*2;
+  int HorizPos = 0;
   int Height = (int)VIDC.Vert_CursorEnd - (int)VIDC.Vert_CursorStart; //+1;
   int VertPos;
 
-  VertPos = (int)VIDC.Vert_CursorStart;
-  VertPos -= (signed int)VIDC.Vert_DisplayStart;
+  DisplayDev_GetCursorPos(state,&HorizPos,&VertPos);
 
   if (Height < 1) Height = 1;
   if (VertPos < 0) VertPos = 0;
@@ -708,7 +710,6 @@ static void RefreshMouse(ARMul_State *state) {
 
   updateDisplay(0, 0, 800, 600, 1);
 }; /* RefreshMouse */
-
 
 void
 RefreshDisplay(ARMul_State *state,CycleCount nowtime)
@@ -1071,6 +1072,11 @@ void VIDC_PutVal(ARMul_State *state,ARMword address, ARMword data,int bNw)
 
 #endif
 
+static void RefreshMouse(ARMul_State *state)
+{
+  
+}
+
 int
 Kbd_PollHostKbd(ARMul_State *state)
 {
@@ -1082,5 +1088,5 @@ DisplayDev_Init(ARMul_State *state)
 {
   GenerateInvertedKeyTable();
 
-  return DisplayDev_Set(state,&PDD_DisplayDev);
+  return DisplayDev_Set(state,&SDD_DisplayDev);
 }
