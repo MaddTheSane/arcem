@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		557C2ACD20CAE8810084CBDB /* c99.h in Headers */ = {isa = PBXBuildFile; fileRef = 557C2ACC20CAE8810084CBDB /* c99.h */; };
+		557C2AD120CAE8D00084CBDB /* hostfs.h in Headers */ = {isa = PBXBuildFile; fileRef = 557C2ACF20CAE8D00084CBDB /* hostfs.h */; };
 		5582DD5720C8C14900931D55 /* ArcemView.h in Headers */ = {isa = PBXBuildFile; fileRef = D157A5F10291D6F801123251 /* ArcemView.h */; };
 		5582DD5820C8C14900931D55 /* ArcemController.h in Headers */ = {isa = PBXBuildFile; fileRef = D157A5F60291D94401123251 /* ArcemController.h */; };
 		5582DD5920C8C14900931D55 /* ArcemEmulator.h in Headers */ = {isa = PBXBuildFile; fileRef = D157A5FA0291DA6C01123251 /* ArcemEmulator.h */; };
@@ -78,6 +80,9 @@
 		4CA3F3EE046BE8B800E6600F /* keyboard.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = keyboard.c; sourceTree = "<group>"; };
 		4CA3F3EF046BE8B800E6600F /* keyboard.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = keyboard.h; sourceTree = "<group>"; };
 		55202D8020C8C4A700E2DA03 /* paldisplaydev.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = paldisplaydev.c; sourceTree = "<group>"; };
+		557C2ACC20CAE8810084CBDB /* c99.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c99.h; sourceTree = "<group>"; };
+		557C2ACE20CAE8D00084CBDB /* hostfs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hostfs.c; sourceTree = "<group>"; };
+		557C2ACF20CAE8D00084CBDB /* hostfs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hostfs.h; sourceTree = "<group>"; };
 		5582DD9520C8C14900931D55 /* Info-ArcEm__Upgraded_.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-ArcEm__Upgraded_.plist"; sourceTree = "<group>"; };
 		5582DD9620C8C14900931D55 /* ArcEm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArcEm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55F89C2220C8C79700374D5B /* cp15.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cp15.c; sourceTree = "<group>"; };
@@ -207,7 +212,6 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				29B97316FDCFA39411CA2CEA /* main.m */,
 				D1E0F9CF02B41B0301D1F43F /* arch */,
 				D1E0F9E202B41B0301D1F43F /* armcopro.c */,
 				D1E0F9E302B41B0301D1F43F /* armdefs.h */,
@@ -215,10 +219,13 @@
 				D1E0F9E902B41B0301D1F43F /* armemu.h */,
 				D1E0F9EB02B41B0301D1F43F /* arminit.c */,
 				D1E0F9F102B41B0301D1F43F /* armsupp.c */,
+				557C2ACC20CAE8810084CBDB /* c99.h */,
 				55F89C2720C8C7F800374D5B /* eventq.c */,
 				55F89C2820C8C7F800374D5B /* eventq.h */,
 				D1E0F9F402B41B0301D1F43F /* dagstandalone.c */,
 				D1E0F9F502B41B0301D1F43F /* dagstandalone.h */,
+				557C2ACE20CAE8D00084CBDB /* hostfs.c */,
+				557C2ACF20CAE8D00084CBDB /* hostfs.h */,
 				D1F01DD50293336E01CDBB35 /* mac */,
 			);
 			name = "Other Sources";
@@ -286,6 +293,7 @@
 		D1F01DD50293336E01CDBB35 /* mac */ = {
 			isa = PBXGroup;
 			children = (
+				29B97316FDCFA39411CA2CEA /* main.m */,
 				D1F01D8302931F6101CDBB35 /* macarcem.h */,
 				D1F01DD60293339001CDBB35 /* DispKbd.c */,
 				D1F01DD8029333DB01CDBB35 /* win.h */,
@@ -294,7 +302,8 @@
 				55F89C3F20C8CA5800374D5B /* sound.c */,
 			);
 			name = mac;
-			sourceTree = SOURCE_ROOT;
+			path = macosx;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -308,7 +317,9 @@
 				5582DD5820C8C14900931D55 /* ArcemController.h in Headers */,
 				5582DD5920C8C14900931D55 /* ArcemEmulator.h in Headers */,
 				5582DD5A20C8C14900931D55 /* macarcem.h in Headers */,
+				557C2AD120CAE8D00084CBDB /* hostfs.h in Headers */,
 				55F89C2A20C8C7F800374D5B /* eventq.h in Headers */,
+				557C2ACD20CAE8810084CBDB /* c99.h in Headers */,
 				5582DD5B20C8C14900931D55 /* win.h in Headers */,
 				5582DD5C20C8C14900931D55 /* KeyTable.h in Headers */,
 				55F89C3020C8C92F00374D5B /* extnrom.h in Headers */,
