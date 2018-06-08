@@ -25,7 +25,8 @@
 #import "macarcem.h"
 #import "PreferenceController.h"
 #include <ApplicationServices/ApplicationServices.h>
-#import <pthread.h>
+#include <pthread.h>
+#include "win.h"
 
 
 // Welcome to the wonderful world of object orientated programming, but alas
@@ -89,7 +90,9 @@ extern int rMouseHeight;
 #define CURSOR_HEIGHT 32
 
 @implementation ArcemView
-
+@synthesize xScaled=bXScale;
+@synthesize yScaled=bYScale;
+@synthesize mouseLock=captureMouse;
 
 /*------------------------------------------------------------------------------
  * initWithFrame - constructor
@@ -240,8 +243,16 @@ extern int rMouseHeight;
  */
 - (void)toggleMouseLock
 {
-    captureMouse = !captureMouse;
+    self.mouseLock = !captureMouse;
+}
 
+- (void)setMouseLock:(BOOL)mouseLock
+{
+    if (mouseLock == captureMouse) {
+        return;
+    }
+    captureMouse = mouseLock;
+    
     if (captureMouse)
     {
         // Turning on mouse capture
@@ -313,8 +324,7 @@ extern int rMouseHeight;
  */
 - (void)removeMouseLock
 {
-    if (captureMouse)
-        [self toggleMouseLock];
+    self.mouseLock = NO;
 }
 
 
@@ -335,8 +345,8 @@ extern int rMouseHeight;
     frame.origin.y += frame.size.height - (height + 22);
     
     // Set the window size
-    frame.size.width = (float)(width * nXScale);
-    frame.size.height = (float)((height * nYScale) + 22); // bad use of constant :)
+    frame.size.width = (CGFloat)(width * nXScale);
+    frame.size.height = (CGFloat)((height * nYScale) + 22); // bad use of constant :)
     
     // Resize the window
     [window setFrame: frame

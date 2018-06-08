@@ -1078,5 +1078,7 @@ Kbd_PollHostKbd(ARMul_State *state)
 int
 DisplayDev_Init(ARMul_State *state)
 {
+  GenerateInvertedKeyTable();
+
   return DisplayDev_Set(state,&PDD_DisplayDev);
 }
