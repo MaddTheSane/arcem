@@ -16,3 +16,4 @@ index.html
 *.pbxuser
 xcuserdata/
 project.xcworkspace/
+*.o
