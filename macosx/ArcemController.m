@@ -367,13 +367,14 @@
 
 /*------------------------------------------------------------------------------
  *
- *
+ */
 - (void)openPanelHardDiscDidEnd: (NSOpenPanel *)openPanel
-                     returnCode: (int)returnCode
+                     returnCode: (NSModalResponse)returnCode
                     contextInfo: (void *)x
 {
     if (returnCode == NSOKButton)
     {
+#if 0
         NSString *path = [openPanel filename];
 
         //NSLog(@"Open file %s for drive %d\n", [path cString], mountDrive);
@@ -390,9 +391,10 @@
         // Now disable the insert menu option and enable the eject menu option
         [menuItemsMount[mountDrive] setEnabled: NO];
         [menuItemsEject[mountDrive] setEnabled: YES];
+#endif
     }
 }
-*/
+
 
 
 /*------------------------------------------------------------------------------
