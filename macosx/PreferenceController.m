@@ -26,10 +26,10 @@
 #import "KeyTable.h"
 
 // The keys we use for our plist
-NSString *AEUseMouseEmulationKey = @"Use Mouse Emulation";
-NSString *AEAdjustModifierKey = @"Adjust Modifier";
-NSString *AEMenuModifierKey = @"Menu Modifier";
-NSString *AEDirectoryKey = @"Directory";
+NSString *const AEUseMouseEmulationKey = @"Use Mouse Emulation";
+NSString *const AEAdjustModifierKey = @"Adjust Modifier";
+NSString *const AEMenuModifierKey = @"Menu Modifier";
+NSString *const AEDirectoryKey = @"Directory";
 
 @implementation PreferenceController
 

@@ -25,10 +25,10 @@
 #import <AppKit/AppKit.h>
 #import "ArcemView.h"
 
-extern NSString *AEUseMouseEmulationKey;
-extern NSString *AEAdjustModifierKey;
-extern NSString *AEMenuModifierKey;
-extern NSString *AEDirectoryKey;
+extern NSString *const AEUseMouseEmulationKey;
+extern NSString *const AEAdjustModifierKey;
+extern NSString *const AEMenuModifierKey;
+extern NSString *const AEDirectoryKey;
 
 @interface PreferenceController : NSWindowController {
     IBOutlet NSButton *useMouseEmulation;
