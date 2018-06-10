@@ -267,6 +267,7 @@ errno_to_hostfs_error(const char *filename,const char *function,const char *op)
     fprintf(stderr,"%s() could not %s '%s': %s %d\n",function,op,filename,strerror(errno),errno);
     return HOSTFS_ERROR_UNKNOWN;
   }
+  return HOSTFS_ERROR_UNKNOWN;
 }
 
 
